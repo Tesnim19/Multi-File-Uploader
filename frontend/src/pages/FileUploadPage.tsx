@@ -1,17 +1,11 @@
-// pages/FileUploadPage.tsx
+import React from 'react';
+import FileUploadForm from '../components/FileUploadForm';
 
-import FileUpload from "../components/FileUploadForm";
-
-const FileUploadPage = () => {
-  const handleFileUpload = (file: any) => {
-    // Handle file upload logic here
-    console.log('Uploaded file:', file);
-  };
-
+const FileUploadPage: React.FC = () => {
   return (
-    <div className="container mx-auto">
-      <h1 className="text-3xl font-bold mt-8">Upload Files</h1>
-      <FileUpload onFileUpload={handleFileUpload} />
+    <div>
+      <h2>File Upload</h2>
+      <FileUploadForm />
     </div>
   );
 };

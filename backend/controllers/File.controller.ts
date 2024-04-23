@@ -18,29 +18,26 @@ export const getAllFiles = async (req: Request, res: Response) => {
 // Controller function to upload a new file
 export const uploadFile = async (req: Request, res: Response) => {
   try {
-    // Use Multer middleware to handle multiple file upload
-    upload.array('files')(req, res, async (err) => {
-      if (err instanceof multer.MulterError) {
-        // Multer error occurred
-        return res.status(400).json({ error: 'File upload error: ' + err.message });
-      } else if (err) {
-        // Other error occurred
+    // Use Multer middleware to handle multiple file uploads
+    upload.array('files[]')(req, res, async (err: any) => {
+      if (err) {
         console.error('File upload error:', err);
         return res.status(500).json({ error: 'Internal server error' });
       }
 
-      // Extract description from request body
-      const { description } = req.body;
-
       // Files uploaded successfully
       const uploadedFiles = req.files as Express.Multer.File[];
-      const savedFiles = [];
-      for (const file of uploadedFiles) {
-        // Save file details and description to the database
-        const { originalname, path } = file;
-        const newFile = await File.create({ filename: originalname, filepath: path, description });
-        savedFiles.push(newFile);
+      const fileData: any[] = [];
+
+      // Extract file data and descriptions
+      for (let i = 0; i < uploadedFiles.length; i++) {
+        const file = uploadedFiles[i];
+        const description = req.body[`description${i}`];
+        fileData.push({ filename: file.originalname, filepath: file.path, description });
       }
+
+      // Save file details to the database
+      const savedFiles = await File.bulkCreate(fileData);
 
       // Respond with success message and saved file details
       return res.status(200).json({ message: 'Files uploaded successfully', files: savedFiles });
@@ -50,7 +47,6 @@ export const uploadFile = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-
 // Controller function to delete a file by ID
 export const deleteFile = async (req: Request, res: Response) => {
   const { id } = req.params;
