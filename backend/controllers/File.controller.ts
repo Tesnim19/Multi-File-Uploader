@@ -63,19 +63,46 @@ export const deleteFile = async (req: Request, res: Response) => {
   }
 };
 
+import fs from 'fs/promises';
+
 export const updateFile = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { description } = req.body;
+  const { description, files } = req.body;
+  // const files = req.files as Express.Multer.File[];
 
   try {
-    const file = await File.findByPk(id);
-    if (!file) {
+    let updatedFile = await File.findByPk(id);
+    if (!updatedFile) {
       return res.status(404).json({ error: 'File not found' });
     }
-    file.description = description;
-    await file.save();
-    res.status(200).json(file);
+
+    // Handle both cases where description and/or file may be updated
+    const fileData: any[] = [];
+    const existingDescription = updatedFile.description;
+
+    // Add the new file to fileData if provided
+    if (files.length > 0) {
+      const newFile = files[0];
+      const newPath = 'path/to/new/file'; // Path where the new file will be saved
+      await fs.writeFile(newPath, newFile.buffer); // Write the new file to the server
+      fileData.push({ filename: newFile.originalname, filepath: newPath });
+    }
+
+    // Use existing description if description is not provided
+    const updatedDescription = description ? description : existingDescription;
+
+    // Update the file details in the database
+    await updatedFile.update({ description: updatedDescription });
+
+    // Save the new file details to the database if a new file is provided
+    if (fileData.length > 0) {
+      await File.bulkCreate(fileData);
+    }
+
+    // Respond with the updated file
+    return res.status(200).json(updatedFile);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('Error updating file:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
