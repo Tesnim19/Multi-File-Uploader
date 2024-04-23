@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "minset123",
+    "database": "file_uploader",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
