@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "root",
-    "password": "minset123",
-    "database": "file_uploader",
-    "host": "localhost",
+    "username": "u1ih6cn8og5ad42n",
+    "password": "YDaGcTlQC3nz1KiIbaXX",
+    "database": "bunt0zblazmglqfishhj",
+    "host": "bunt0zblazmglqfishhj-mysql.services.clever-cloud.com",
     "dialect": "mysql"
   }
 }
+
