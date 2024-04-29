@@ -11,7 +11,13 @@ if (require.main) {
 }
 
 const env = process.env.NODE_ENV || 'development';
-const config = require(path.join(directoryName, '../', 'config', 'config.json'))[env];
+let config;
+try {
+  config = require(path.join(directoryName, '../', 'config', 'config.js'))[env];
+} catch (error) {
+  console.error('Error loading config:', error);
+  process.exit(1); // Exit the process if config loading fails
+}
 
 const sequelize = new Sequelize(config.database, config.username, config.password, {
   host: config.host,
@@ -31,17 +37,3 @@ async function testDatabaseConnection() {
 testDatabaseConnection();
 
 export default sequelize;
-// database.ts
-
-// import { Sequelize } from 'sequelize';
-
-// const sequelize = new Sequelize({
-//   dialect: 'mysql',
-//   host: 'localhost',
-//   username: 'your_username',
-//   password: 'your_password',
-//   database: 'file_uploader', // Your database name
-// });
-
-// export default sequelize;
-

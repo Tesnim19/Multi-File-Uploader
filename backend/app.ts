@@ -4,6 +4,8 @@ import File from './models/FileModel';
 import fileRoutes from './routes/File.routes'
 import path from 'path';
 const cors = require('cors');
+require('dotenv').config();
+
 
 const app = express();
 app.use(cors({ origin: "*" }));
