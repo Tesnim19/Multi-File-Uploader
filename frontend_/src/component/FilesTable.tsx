@@ -32,11 +32,11 @@ const FilesTable: React.FC <FilesTableProps> = ({ files, onDelete, onEdit }) => 
   
 
 
-  // Function to handle file view
-  const handleView = (url: string) => {
-    const baseUrl = 'http://localhost:3000/';
-    window.open(baseUrl+url, '_blank');
-  };
+  // // Function to handle file view
+  // const handleView = (url: string) => {
+  //   const baseUrl = 'http://localhost:3000/';
+  //   window.open(baseUrl+url, '_blank');
+  // };
 
   return (
     <div className="files-table">
