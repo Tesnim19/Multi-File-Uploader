@@ -1,0 +1,21 @@
+/* styles.css */
+body {
+  background-color: #F0F0F3;
+  font-family: 'Nunito Sans', 'Lato', 'Helvetica Neue', 'Lucida Grande', sans-serif;
+  color: #243b53;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #243b53;
+}
+
+.main-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
