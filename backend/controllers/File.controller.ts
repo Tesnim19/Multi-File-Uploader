@@ -65,42 +65,57 @@ export const deleteFile = async (req: Request, res: Response) => {
 
 import fs from 'fs/promises';
 
+
+// Controller function to update a file by ID
 export const updateFile = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { description, files } = req.body;
-  // const files = req.files as Express.Multer.File[];
+  const { newDescription } = req.body ? req.body : '';
+  console.log(newDescription);
+  const fileData: any = {};
 
   try {
-    let updatedFile = await File.findByPk(id);
-    if (!updatedFile) {
+    let file = await File.findByPk(id);
+    if (!file) {
       return res.status(404).json({ error: 'File not found' });
     }
 
-    // Handle both cases where description and/or file may be updated
-    const fileData: any[] = [];
-    const existingDescription = updatedFile.description;
+  // Update the file's description if provided
+  if (newDescription) {
+    fileData.description = newDescription; // Update to use newDescription
+  }
 
-    // Add the new file to fileData if provided
-    if (files.length > 0) {
-      const newFile = files[0];
-      const newPath = 'path/to/new/file'; // Path where the new file will be saved
-      await fs.writeFile(newPath, newFile.buffer); // Write the new file to the server
-      fileData.push({ filename: newFile.originalname, filepath: newPath });
-    }
 
-    // Use existing description if description is not provided
-    const updatedDescription = description ? description : existingDescription;
+    // Handle file upload if a new file is provided
+    upload.single('file')(req, res, async (err: any) => {
+      if (err) {
+        console.error('File upload error:', err);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
 
-    // Update the file details in the database
-    await updatedFile.update({ description: updatedDescription });
+      if (req.file) {
+        // Save the new file to the server
+        const newFilePath = req.file.path;
+        // Update file metadata
+        fileData.filename = req.file.originalname;
+        fileData.filepath = newFilePath;
 
-    // Save the new file details to the database if a new file is provided
-    if (fileData.length > 0) {
-      await File.bulkCreate(fileData);
-    }
+        // Remove the old file from the server
+        const oldFilePath = file.filepath;
+        await fs.unlink(oldFilePath);
 
-    // Respond with the updated file
-    return res.status(200).json(updatedFile);
+        // Update file object with new metadata
+        file.set(fileData);
+
+        // Save the updated file object
+        await file.save();
+
+        res.status(200).json({ message: 'File updated successfully', file });
+      } else {
+        // If no file was uploaded, only update the file's description
+        await file.update(fileData);
+        res.status(200).json({ message: 'File description updated successfully', file });
+      }
+    });
   } catch (error) {
     console.error('Error updating file:', error);
     return res.status(500).json({ error: 'Internal server error' });

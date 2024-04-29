@@ -2,11 +2,13 @@ import express from 'express';
 import sequelize from './utils/database';
 import File from './models/FileModel';
 import fileRoutes from './routes/File.routes'
+import path from 'path';
 const cors = require('cors');
 
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use('/api', fileRoutes);
+app.use('/uploads', express.static('uploads'));
 
 
 
