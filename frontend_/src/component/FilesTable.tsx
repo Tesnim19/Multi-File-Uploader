@@ -35,7 +35,6 @@ const FilesTable: React.FC <FilesTableProps> = ({ files, onDelete, onEdit }) => 
   // Function to handle file view
   const handleView = (url: string) => {
     const baseUrl = 'http://localhost:3000/';
-    console.log(baseUrl+url)
     window.open(baseUrl+url, '_blank');
   };
 
@@ -55,8 +54,8 @@ const FilesTable: React.FC <FilesTableProps> = ({ files, onDelete, onEdit }) => 
               <td>{file.filename}</td>
               <td>{file.description}</td>
               <td>
-                <button onClick={ () => {handleDownload(file.filepath, file.filename)} }>Download</button>
-                <button onClick={() => handleView(file.filepath)}>View</button>
+                <button onClick={ () => {handleDownload(file.filepath, file.filename)} }>Download/View</button>
+                {/* <button onClick={() => handleView(file.filepath)}>View</button> */}
                 <button onClick={() => onEdit(file)}>Edit</button>
                 <button onClick={() => onDelete(file.id)}>Delete</button>
               </td>

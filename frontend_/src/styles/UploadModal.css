@@ -114,3 +114,8 @@
 .submit-button:hover {
   background-color: #03033B;
 }
+
+.error {
+  color: red;
+  font-size: 0.8rem; /* Adjust font size as needed */
+}
