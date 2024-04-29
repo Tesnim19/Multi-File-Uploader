@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import * as path from 'path';
+require('dotenv').config();
 
 // Get the directory name of the current module file
 let directoryName: string;
@@ -19,9 +20,14 @@ try {
   process.exit(1); // Exit the process if config loading fails
 }
 
-const sequelize = new Sequelize(config.database, config.username, config.password, {
-  host: config.host,
-  dialect: config.dialect,
+const username =  process.env.DB_USERNAME|| '';
+const   password= process.env.DB_PASSWORD|| '';
+const   database= process.env.DB_DATABASE|| '';
+const   host= process.env.DB_HOST|| '';
+const   dialect= 'mysql' || '';
+const sequelize = new Sequelize(database, username, password, {
+  host: host,
+  dialect: dialect,
 });
 
 // Test the database connection
