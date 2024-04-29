@@ -12,8 +12,10 @@ This project is a multi-file uploader application developed using React with Typ
 
 ## Deployment
 
-- Backend deployed on Render.
-- Frontend deployed on Vercel.
+- Backend deployed on Render. Link: [https://multi-file-uploader-mbkj.onrender.com](https://multi-file-uploader-mbkj.onrender.com)
+- Frontend deployed on Vercel. Link: [https://multifileuploader-3yx1cmzvg-tesnim19s-projects.vercel.a](https://multifileuploader-3yx1cmzvg-tesnim19s-projects.vercel.a)
+
+**Note:** For the time being, the backend is only accessible through local setup. Clone the repository and follow the instructions in the README to start the backend server.
 
 ## Getting Started
 
@@ -27,11 +29,6 @@ This project is a multi-file uploader application developed using React with Typ
 - **Frontend:** React, TypeScript, Axios
 - **Backend:** Node.js, Express, TypeScript, Sequelize, MySQL
 
-## Contributing
+## Running the Backend
 
-Contributions are welcome! Please fork this repository, make your changes, and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
-
+To start the backend server, navigate to the backend directory:
