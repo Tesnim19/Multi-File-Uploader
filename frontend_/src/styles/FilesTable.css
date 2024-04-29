@@ -1,0 +1,24 @@
+.files-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.files-table th,
+.files-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.files-table th {
+  background-color: #f2f2f2;
+}
+
+.files-table th:first-child,
+.files-table td:first-child {
+  border-left: none;
+}
+
+.files-table th:last-child,
+.files-table td:last-child {
+  border-right: none;
+}
