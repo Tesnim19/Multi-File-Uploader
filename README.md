@@ -27,6 +27,7 @@ npm install
 npm start
 ```
 4. Access the application through the provided Frontend URL.
+Make sure to add .env file in the root directory of the backend from the .env.example for the time being
 
 ## Technologies Used
 
