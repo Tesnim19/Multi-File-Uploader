@@ -13,7 +13,7 @@ This project is a multi-file uploader application developed using React with Typ
 ## Deployment
 
 - Backend deployed on Render. Link: [https://multi-file-uploader-mbkj.onrender.com](https://multi-file-uploader-mbkj.onrender.com)
-- Frontend deployed on Vercel. Link: [https://multifileuploader-3yx1cmzvg-tesnim19s-projects.vercel.a](https://multifileuploader-3yx1cmzvg-tesnim19s-projects.vercel.a)
+- Frontend deployed on Vercel. Link: [https://multifileuploader-3yx1cmzvg-tesnim19s-projects.vercel.app](https://multifileuploader-3yx1cmzvg-tesnim19s-projects.vercel.app)
 
 **Note:** For the time being, the backend is only accessible through local setup. Clone the repository and follow the instructions in the README to start the backend server.
 
